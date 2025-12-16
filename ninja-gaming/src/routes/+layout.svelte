@@ -5,29 +5,19 @@
   let { children } = $props(); 
 </script>
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Links - Ninja Gaming</title>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <Title title="Ninja Gaming Links" />
-      </nav> 
-    </header>
+<header>
+  <nav>
+    <Title title="Ninja Gaming Links" />
+  </nav> 
+</header>
 
-    <main>
-      {@render children()} 
-    </main>
+<main>
+  {@render children()} 
+</main>
 
-    <footer>
-      <p>Links Page Footer</p>
-    </footer>
-  </body>
-</html>
+<footer>
+  <p>Links Page Footer</p>
+</footer>
 
 <style>
   header {
