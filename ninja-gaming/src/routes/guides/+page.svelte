@@ -3,20 +3,19 @@
   let guides = [];
 
   onMount(async () => {
-    guides = await fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(r => r.json());
+    guides = await fetch('https://jsonplaceholder.typicode.com/posts').then(r => r.json());
   });
 </script>
+
 <div class="guides">
   <ul>
     {#each guides as guide}
     <li>
-      <a href={`/guides/${guide.id}`}>{guide.title}</a>
+      <a href="/guides/{guide.id}">{guide.title}</a>
     </li>
     {/each}
   </ul>
 </div>
-
 
 <style>
   .guides {
@@ -32,5 +31,4 @@
     padding: 10px;
     border: 1px dotted rgba(255,255,255,0.2);
   }
-
 </style>

@@ -3,6 +3,7 @@
   import '$lib/styles/global.css';
   
   let { children } = $props(); 
+  console.log('Layout principale caricato');
 </script>
 
 <header>
