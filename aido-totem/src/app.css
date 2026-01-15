@@ -11,14 +11,41 @@
   --aido-dark: #1a1a2e;
   --aido-blue: #0f3460;
 
-  --totem-radius: 2rem;
-  --totem-button-height: 60px;
+  /* Dimensioni fisiche totem: 550.41mm (w) × 980.42mm (h) portrait */
+  /* Rapporto aspect: 0.56 (circa 9:16) */
+  
+  /* Variabili responsive ottimizzate per totem verticale */
+  --totem-radius: clamp(0.75rem, 2.5vw, 1.5rem);
+  --totem-button-height: clamp(55px, 7vh, 70px);
+  --totem-padding: clamp(1rem, 2.5vw, 2rem);
+  --totem-padding-x: clamp(1rem, 3vw, 2.5rem);
+  --totem-padding-y: clamp(1.5rem, 2.5vh, 3rem);
+  
+  /* Font sizes ottimizzate per display verticale */
+  --font-size-xs: clamp(0.7rem, 1.8vw, 0.875rem);
+  --font-size-sm: clamp(0.8rem, 2vw, 1rem);
+  --font-size-base: clamp(0.9rem, 2.2vw, 1.1rem);
+  --font-size-lg: clamp(1rem, 2.5vw, 1.25rem);
+  --font-size-xl: clamp(1.1rem, 2.8vw, 1.4rem);
+  --font-size-2xl: clamp(1.3rem, 3.2vw, 1.7rem);
+  --font-size-3xl: clamp(1.6rem, 3.8vw, 2.1rem);
+  --font-size-4xl: clamp(2rem, 4.5vw, 2.8rem);
+  --font-size-5xl: clamp(2.5rem, 5.5vw, 3.5rem);
+  --font-size-6xl: clamp(3rem, 6.5vw, 4.2rem);
+  
+  /* Spacing verticale ottimizzato */
+  --spacing-section: clamp(2rem, 4vh, 4rem);
+  --spacing-card: clamp(1rem, 2vh, 2rem);
 }
 
 /* =========================
    BASE
    ========================= */
 @layer base {
+  html {
+    font-size: clamp(13px, 1.4vw, 16px);
+  }
+
   body {
     margin: 0;
     padding: 0;
@@ -27,24 +54,49 @@
     touch-action: manipulation;
     user-select: none;
     background: linear-gradient(
-      to bottom right,
+      to bottom,
       #4c1d95,
       #5b21b6,
+      #6d28d9,
+      #7c3aed,
       #1e3a8a
     );
-    width: 530.44px;
-    height: 943.36px;
+    
+    /* Dimensioni ottimizzate per totem verticale */
+    width: 100vw;
+    height: 100vh;
     position: relative;
+    
+    /* Aspect ratio del totem: ~9:16 (portrait) */
+    /* 550.41mm width × 980.42mm height */
   }
 
   * {
     -webkit-tap-highlight-color: transparent;
   }
+  
+  /* Ottimizzazione scroll per totem verticale */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(193, 39, 45, 0.6);
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(193, 39, 45, 0.8);
+  }
 }
 
 /* =========================
    UTILITY COLORI AIDO
-   (sostituisce tailwind.config.js)
    ========================= */
 @layer utilities {
   .bg-aido-red { background-color: var(--aido-red); }
@@ -56,6 +108,63 @@
   .text-aido-orange { color: var(--aido-orange); }
   .text-aido-dark { color: var(--aido-dark); }
   .text-aido-blue { color: var(--aido-blue); }
+
+  /* Font sizes responsive per totem */
+  .text-totem-xs { font-size: var(--font-size-xs); }
+  .text-totem-sm { font-size: var(--font-size-sm); }
+  .text-totem-base { font-size: var(--font-size-base); }
+  .text-totem-lg { font-size: var(--font-size-lg); }
+  .text-totem-xl { font-size: var(--font-size-xl); }
+  .text-totem-2xl { font-size: var(--font-size-2xl); }
+  .text-totem-3xl { font-size: var(--font-size-3xl); }
+  .text-totem-4xl { font-size: var(--font-size-4xl); }
+  .text-totem-5xl { font-size: var(--font-size-5xl); }
+  .text-totem-6xl { font-size: var(--font-size-6xl); }
+  
+  /* Spacing per totem verticale */
+  .gap-totem { gap: var(--spacing-card); }
+  .gap-totem-section { gap: var(--spacing-section); }
+  
+  .p-totem { padding: var(--totem-padding); }
+  .px-totem { padding-left: var(--totem-padding-x); padding-right: var(--totem-padding-x); }
+  .py-totem { padding-top: var(--totem-padding-y); padding-bottom: var(--totem-padding-y); }
+  
+  .m-totem { margin: var(--totem-padding); }
+  .mb-totem-section { margin-bottom: var(--spacing-section); }
+  
+  /* Icon sizes per totem */
+  .icon-totem-sm { font-size: clamp(2.2rem, 6vw, 3.2rem); }
+  .icon-totem-md { font-size: clamp(3rem, 8vw, 4.5rem); }
+  .icon-totem-lg { font-size: clamp(4rem, 11vw, 6rem); }
+  .icon-totem-xl { font-size: clamp(5rem, 14vw, 8rem); }
+  
+  /* Layout utilities */
+  .h-totem-screen {
+    height: 100vh;
+    height: 100dvh;
+  }
+  
+  .min-h-totem-screen {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  
+  .overflow-totem-touch {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  /* Effetti touch ottimizzati per totem */
+  .totem-touch-feedback:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+  
+  /* Border radius totem */
+  .rounded-totem { border-radius: var(--totem-radius); }
+  .rounded-totem-lg { border-radius: calc(var(--totem-radius) * 1.5); }
+  .rounded-totem-sm { border-radius: calc(var(--totem-radius) * 0.6); }
 }
 
 /* =========================
@@ -65,66 +174,324 @@
   .totem-card {
     background: white;
     border-radius: var(--totem-radius);
-    padding: 2rem;
-    min-height: 200px;
-    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+    padding: var(--totem-padding);
+    min-height: clamp(140px, 18vh, 200px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.25);
     transition: transform .3s ease, box-shadow .3s ease;
   }
 
   .totem-card:hover {
-    transform: scale(1.02);
+    transform: scale(1.015);
+    box-shadow: 0 20px 45px rgba(0,0,0,.3);
   }
 
   .totem-button {
     background-color: var(--aido-red);
     color: white;
     min-height: var(--totem-button-height);
-    min-width: 200px;
-    padding: 1rem 2rem;
+    min-width: clamp(180px, 35vw, 240px);
+    padding: clamp(0.9rem, 2.2vh, 1.2rem) clamp(1.8rem, 4vw, 2.5rem);
     border-radius: 9999px;
-    font-size: 1.25rem;
-    font-weight: bold;
-    box-shadow: 0 10px 25px rgba(0,0,0,.3);
-    transition: transform .2s ease, background-color .2s ease;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(193, 39, 45, 0.4);
+    transition: all .2s ease;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
   }
 
   .totem-button:hover {
     background-color: #a61f25;
+    box-shadow: 0 12px 28px rgba(193, 39, 45, 0.5);
+    transform: translateY(-2px);
   }
 
   .totem-button:active {
-    transform: scale(.95);
+    transform: scale(.97) translateY(0);
+    box-shadow: 0 5px 15px rgba(193, 39, 45, 0.4);
   }
 
   .qr-container {
-    width: 300px;
-    height: 300px;
+    width: clamp(220px, 45vw, 320px);
+    height: clamp(220px, 45vw, 320px);
+    max-width: 85vw;
+    max-height: 35vh;
     background: white;
-    border-radius: 1.5rem;
-    padding: 1.5rem;
-    box-shadow: inset 0 2px 10px rgba(0,0,0,.15);
+    border-radius: var(--totem-radius);
+    padding: clamp(1rem, 2vw, 1.5rem);
+    box-shadow: inset 0 2px 10px rgba(0,0,0,.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Container principale ottimizzato per totem verticale */
+  .page-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: var(--totem-padding-y) var(--totem-padding-x);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Griglia ottimizzata per display verticale */
+  .responsive-grid {
+    display: grid;
+    gap: var(--spacing-card);
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  /* Layout per contenuti affiancati su totem verticale */
+  .totem-two-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-card);
+  }
+  
+  /* Header del totem */
+  .totem-header {
+    text-align: center;
+    margin-bottom: var(--spacing-section);
+    padding: var(--totem-padding-y) 0;
+  }
+  
+  /* Footer/Pulsanti azione */
+  .totem-actions {
+    margin-top: auto;
+    padding-top: var(--spacing-section);
+  }
+  
+  /* Scroll area ottimizzata */
+  .totem-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 0.5rem;
+  }
+  
+  /* Logo AIDO responsive */
+  .totem-logo {
+    width: clamp(6rem, 18vw, 10rem);
+    height: clamp(6rem, 18vw, 10rem);
+    background: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+  }
+  
+  .totem-logo-text {
+    color: var(--aido-red);
+    font-size: clamp(2rem, 7vw, 4rem);
+    font-weight: 700;
   }
 }
 
 /* =========================
-   STILI RESPONSIVE
+   MEDIA QUERIES TOTEM VERTICALE
    ========================= */
-@screen totem {
+
+/* TOTEM PORTRAIT MODE (uso principale) */
+/* Aspect ratio ~0.56 (9:16) - 550mm × 980mm */
+@media (orientation: portrait) {
   :root {
-    --totem-radius: 1.5rem;
+    --totem-radius: 1.2rem;
+    --totem-button-height: 65px;
+    --totem-padding: 1.5rem;
+    --totem-padding-x: 2rem;
+    --totem-padding-y: 2.5rem;
+  }
+  
+  .responsive-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .totem-two-col {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Menu cards in colonna singola per massima leggibilità */
+  .menu-grid {
+    grid-template-columns: 1fr !important;
+    max-width: 100%;
+  }
+}
+
+/* TOTEM LANDSCAPE MODE (rotazione accidentale) */
+@media (orientation: landscape) {
+  :root {
+    --totem-padding-y: 1.5rem;
+  }
+  
+  .page-container {
+    padding: 1.5rem 3rem;
+  }
+  
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .totem-two-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* Ridurre altezze in landscape */
+  .totem-header {
+    margin-bottom: 2rem;
+    padding: 1rem 0;
   }
   
   .totem-card {
-    padding: 1.5rem;
+    min-height: 120px;
   }
+}
 
+/* Ottimizzazione per display totem specifico (550×980mm) */
+@media (min-width: 500px) and (max-width: 650px) and (min-height: 900px) and (max-height: 1100px) and (orientation: portrait) {
+  :root {
+    --totem-radius: 1.3rem;
+    --totem-button-height: 68px;
+    --totem-padding: 1.8rem;
+    --totem-padding-x: 2.2rem;
+    --totem-padding-y: 2.8rem;
+  }
+  
+  body {
+    font-size: 15px;
+  }
+  
+  .totem-card {
+    padding: 2rem;
+    min-height: 160px;
+  }
+  
   .totem-button {
-    font-size: 1.1rem;
-    padding: 1rem 1.5rem;
+    min-width: 220px;
+    font-size: 1.25rem;
+  }
+  
+  .qr-container {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+/* Altezze ridotte (se schermo totem più piccolo) */
+@media (max-height: 850px) and (orientation: portrait) {
+  :root {
+    --totem-padding-y: 1.5rem;
+    --spacing-section: 2rem;
+  }
+  
+  .totem-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .totem-card {
+    min-height: 130px;
+    padding: 1.3rem;
+  }
+}
+
+/* Altezze molto elevate */
+@media (min-height: 1050px) and (orientation: portrait) {
+  :root {
+    --totem-padding-y: 3.5rem;
+    --spacing-section: 4.5rem;
+  }
+  
+  .totem-header {
+    margin-bottom: 3.5rem;
+  }
+  
+  .totem-card {
+    min-height: 180px;
+    padding: 2.5rem;
+  }
+}
+
+/* =========================
+   UTILITIES AGGIUNTIVE
+   ========================= */
+@layer utilities {
+  .h-screen-safe {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height per mobile */
   }
 
-  .qr-container {
-    width: 250px;
-    height: 250px;
+  .overflow-touch {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Spacing responsive */
+  .gap-responsive {
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+  }
+
+  .p-responsive {
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .px-responsive {
+    padding-left: clamp(1rem, 3vw, 2rem);
+    padding-right: clamp(1rem, 3vw, 2rem);
+  }
+
+  .py-responsive {
+    padding-top: clamp(1rem, 3vw, 2rem);
+    padding-bottom: clamp(1rem, 3vw, 2rem);
+  }
+
+  /* Icon sizes responsive */
+  .icon-sm {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+
+  .icon-md {
+    font-size: clamp(3rem, 7vw, 4rem);
+  }
+
+  .icon-lg {
+    font-size: clamp(4rem, 10vw, 6rem);
+  }
+
+  .icon-xl {
+    font-size: clamp(5rem, 12vw, 8rem);
+  }
+}
+
+/* =========================
+   ANIMAZIONI
+   ========================= */
+@keyframes fade-in {
+  from { 
+    opacity: 0; 
+    transform: translateY(-10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* =========================
+   ACCESSIBILITÀ
+   ========================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -26,62 +26,79 @@
     },
     {
       question: "Quanto costa iscriversi ad AIDO?",
-      answer: "L'iscrizione ad AIDO prevede una quota associativa annuale simbolica. La dichiarazione di volontà tramite ASL o Comune è gratuita."
+      answer: "L'iscrizione ad AIDO prevede una quota associativa annuale simbolica. La dichiarazione tramite ASL o Comune è gratuita."
     }
   ];
 </script>
 
-<div class="h-screen flex items-center justify-center p-8 overflow-y-auto">
-  <div class="max-w-5xl w-full py-20">
-    <div class="text-center mb-12">
-      <h1 class="text-5xl font-bold text-white mb-4">Domande Frequenti</h1>
-      <p class="text-2xl text-white/80">Le risposte alle domande più comuni</p>
-    </div>
-    
-    <div class="space-y-4 mb-24">
+<div class="h-totem-screen flex flex-col">
+  <!-- Header -->
+  <div class="totem-header px-totem pt-totem shrink-0">
+    <h1 class="text-totem-5xl font-bold text-white mb-3">Domande Frequenti</h1>
+    <p class="text-totem-2xl text-white/90">Tocca per leggere le risposte</p>
+  </div>
+  
+  <!-- FAQ scrollabili -->
+  <div class="flex-1 overflow-totem-touch px-totem">
+    <div class="space-y-4 pb-8">
       {#each faqs as faq, i}
         <button
           on:click={() => activeIndex = activeIndex === i ? -1 : i}
-          class="w-full totem-card text-left"
+          class="w-full totem-card text-left totem-touch-feedback"
         >
-          <div class="flex items-start justify-between gap-4">
+          <div class="flex items-start gap-5">
+            <!-- Numero domanda -->
+            <div class="shrink-0 w-14 h-14 rounded-full bg-aido-red/10 flex items-center justify-center">
+              <span class="text-totem-2xl font-bold text-aido-red">{i + 1}</span>
+            </div>
+            
+            <!-- Contenuto -->
             <div class="flex-1">
-              <h3 class="text-2xl font-bold text-gray-800 mb-2">{faq.question}</h3>
+              <h3 class="text-totem-2xl font-bold text-gray-800 leading-tight mb-3">
+                {faq.question}
+              </h3>
+              
               {#if activeIndex === i}
-                <p class="text-xl text-gray-600 mt-4 animate-fade-in">{faq.answer}</p>
+                <p class="text-totem-xl text-gray-600 leading-relaxed animate-fade-in mt-4 pr-12">
+                  {faq.answer}
+                </p>
               {/if}
             </div>
-            <div class="text-4xl text-aido-red transition-transform duration-300" 
-                 class:rotate-180={activeIndex === i}>
+            
+            <!-- Freccia -->
+            <div 
+              class="shrink-0 text-totem-3xl text-aido-red transition-transform duration-300" 
+              class:rotate-180={activeIndex === i}
+            >
               ↓
             </div>
           </div>
         </button>
       {/each}
+      
+      <!-- CTA Volontario digitale -->
+      <div class="totem-card bg-gradient-to-br from-blue-50 to-purple-50 mt-8">
+        <div class="text-center space-y-5">
+          <div class="icon-totem-lg">🤖</div>
+          <h2 class="text-totem-3xl font-bold text-gray-800">
+            Hai altre domande?
+          </h2>
+          <p class="text-totem-xl text-gray-600 leading-relaxed">
+            Chatta con il nostro volontario digitale
+          </p>
+          <button 
+            on:click={() => window.location.href = '/volontario-digitale'}
+            class="totem-button mx-auto"
+          >
+            Avvia chat →
+          </button>
+        </div>
+      </div>
     </div>
-    
-    <div class="totem-card text-center mb-24 bg-gradient-to-br from-blue-50 to-purple-50">
-      <h2 class="text-3xl font-bold text-gray-800 mb-4">Hai altre domande?</h2>
-      <p class="text-xl text-gray-600 mb-6">Parla con il nostro volontario digitale</p>
-      <button 
-        on:click={() => window.location.href = '/volontario-digitale'}
-        class="totem-button"
-      >
-        Avvia chat →
-      </button>
-    </div>
-    
+  </div>
+  
+  <!-- Footer -->
+  <div class="totem-actions px-totem pb-totem shrink-0">
     <BackButton />
   </div>
 </div>
-
-<style>
-  @keyframes fade-in {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .animate-fade-in {
-    animation: fade-in 0.3s ease-out;
-  }
-</style>

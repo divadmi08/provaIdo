@@ -5,49 +5,49 @@
     {
       icon: '📋',
       title: 'Cosa devo fare?',
-      description: 'Scopri dove e come iscriverti',
+      description: 'Dove e come iscriverti',
       path: '/cosa-fare',
       color: 'bg-aido-blue'
     },
     {
       icon: '🏥',
       title: 'Processo di donazione',
-      description: 'Come funziona la donazione',
+      description: 'Come funziona',
       path: '/processo-donazione',
       color: 'bg-aido-red'
     },
     {
       icon: '❤️',
       title: 'Diventa donatore',
-      description: 'Iscriviti subito con QR code',
+      description: 'Iscriviti con QR code',
       path: '/diventa-donatore',
       color: 'bg-green-600'
     },
     {
       icon: '❓',
       title: 'Domande frequenti',
-      description: 'Tutte le risposte che cerchi',
+      description: 'Tutte le risposte',
       path: '/faq',
       color: 'bg-purple-600'
     },
     {
       icon: '🤖',
       title: 'Volontario digitale',
-      description: 'Chatta con il nostro assistente',
+      description: 'Assistente virtuale',
       path: '/volontario-digitale',
       color: 'bg-indigo-600'
     },
     {
       icon: '📱',
       title: 'Scarica l\'app',
-      description: 'App AIDO su smartphone',
+      description: 'App per smartphone',
       path: '/scarica-app',
       color: 'bg-aido-orange'
     },
     {
       icon: '📄',
       title: 'Documenti',
-      description: 'Scarica materiale informativo',
+      description: 'Materiale informativo',
       path: '/documenti',
       color: 'bg-teal-600'
     },
@@ -61,27 +61,50 @@
   ];
 </script>
 
-<div class="h-screen flex flex-col items-center justify-center p-8 totem:p-4 overflow-y-auto">
-  <div class="max-w-6xl w-full">
-    <div class="text-center mb-12 totem:mb-8">
-      <div class="inline-flex items-center justify-center w-32 h-32 totem:w-24 totem:h-24 bg-white rounded-full mb-6">
-        <span class="text-aido-red text-5xl totem:text-4xl font-bold">aido</span>
+<div class="h-totem-screen flex flex-col">
+  <!-- Header fisso -->
+  <div class="totem-header px-totem pt-totem shrink-0">
+    <div class="flex flex-col items-center gap-4">
+      <div class="totem-logo">
+        <span class="totem-logo-text">aido</span>
       </div>
-      <h1 class="text-5xl totem:text-4xl font-bold text-white mb-4">Menu Principale</h1>
-      <p class="text-2xl totem:text-xl text-white/80">Seleziona un'opzione per continuare</p>
+      <h1 class="text-totem-5xl font-bold text-white">Menu Principale</h1>
+      <p class="text-totem-2xl text-white/90">Seleziona un'opzione</p>
     </div>
-    
-    <div class="grid grid-cols-2 md:grid-cols-4 totem:grid-cols-1 gap-6 totem:gap-4 pb-8">
+  </div>
+  
+  <!-- Scroll area con le card -->
+  <div class="flex-1 overflow-totem-touch px-totem pb-totem">
+    <div class="menu-grid responsive-grid">
       {#each menuSections as item}
         <button
           on:click={() => goto(item.path)}
-          class="totem-card group relative overflow-hidden"
+          class="totem-card group relative overflow-hidden totem-touch-feedback"
         >
-          <div class="absolute inset-0 {item.color} opacity-0 group-hover:opacity-10 transition-opacity"></div>
-          <div class="flex flex-col items-center gap-4 relative z-10">
-            <div class="text-6xl totem:text-5xl">{item.icon}</div>
-            <h3 class="text-2xl totem:text-xl font-bold text-gray-800 text-center">{item.title}</h3>
-            <p class="text-sm text-gray-600 text-center">{item.description}</p>
+          <!-- Sfondo colorato al hover -->
+          <div class="absolute inset-0 {item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+          
+          <!-- Contenuto card -->
+          <div class="relative z-10 flex items-center gap-6">
+            <!-- Icona -->
+            <div class="shrink-0 icon-totem-lg">
+              {item.icon}
+            </div>
+            
+            <!-- Testo -->
+            <div class="flex-1 text-left">
+              <h3 class="text-totem-3xl font-bold text-gray-800 mb-2 leading-tight">
+                {item.title}
+              </h3>
+              <p class="text-totem-xl text-gray-600 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+            
+            <!-- Freccia -->
+            <div class="shrink-0 text-totem-3xl text-gray-400 group-hover:text-aido-red group-hover:translate-x-1 transition-all">
+              →
+            </div>
           </div>
         </button>
       {/each}

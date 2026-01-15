@@ -3,19 +3,21 @@
   
   const options = [
     {
-      title: 'ASL (Azienda Sanitaria Locale)',
+      title: 'ASL',
+      subtitle: 'Azienda Sanitaria Locale',
       icon: '🏥',
-      description: 'Rivolgiti alla tua ASL di riferimento per esprimere la volontà di donazione. Porta un documento d\'identità.',
+      description: 'Rivolgiti alla tua ASL di riferimento per esprimere la volontà di donazione.',
       details: [
         'Richiedi il modulo di dichiarazione',
         'Compila e firma il documento',
-        'La dichiarazione viene registrata nel Sistema Informativo Trapianti'
+        'Registrazione nel Sistema Informativo Trapianti'
       ]
     },
     {
-      title: 'Comune di residenza',
+      title: 'Comune',
+      subtitle: 'Ufficio Anagrafe',
       icon: '🏛️',
-      description: 'Presso l\'ufficio anagrafe del tuo comune puoi esprimere la tua volontà al momento del rilascio o rinnovo della carta d\'identità.',
+      description: 'Esprimi la tua volontà al rilascio o rinnovo della carta d\'identità.',
       details: [
         'Durante il rilascio della carta d\'identità',
         'Dichiarazione registrata automaticamente',
@@ -23,9 +25,10 @@
       ]
     },
     {
-      title: 'Iscrizione AIDO',
+      title: 'AIDO',
+      subtitle: 'Associazione Italiana Donatori',
       icon: '❤️',
-      description: 'Iscriviti all\'Associazione Italiana per la Donazione di Organi, Tessuti e Cellule.',
+      description: 'Iscriviti all\'associazione e ricevi supporto continuo.',
       details: [
         'Compila il modulo di iscrizione',
         'Ricevi la tessera AIDO',
@@ -35,34 +38,54 @@
   ];
 </script>
 
-<div class="h-screen flex items-center justify-center p-8 totem:p-4 overflow-y-auto">
-  <div class="max-w-5xl w-full py-20 totem:py-10">
-    <BackButton />
-    <div class="text-center mb-12 totem:mb-8">
-      <h1 class="text-5xl totem:text-4xl font-bold text-white mb-4">Dove posso iscrivermi?</h1>
-      <p class="text-2xl totem:text-xl text-white/80">Scegli il metodo più comodo per te</p>
-    </div>
-    
-    <div class="grid gap-8 totem:gap-4 mb-24">
+<div class="h-totem-screen flex flex-col">
+  <!-- Header -->
+  <div class="totem-header px-totem pt-totem shrink-0">
+    <h1 class="text-totem-5xl font-bold text-white mb-3">Dove iscriversi?</h1>
+    <p class="text-totem-2xl text-white/90">Scegli il metodo più comodo</p>
+  </div>
+  
+  <!-- Content scrollabile -->
+  <div class="flex-1 overflow-totem-touch px-totem">
+    <div class="space-y-6 pb-8">
       {#each options as option}
         <div class="totem-card">
-          <div class="flex gap-6 totem:gap-4">
-            <div class="text-7xl totem:text-5xl shrink-0">{option.icon}</div>
+          <!-- Header card con icona -->
+          <div class="flex items-center gap-5 mb-5 pb-5 border-b-2 border-gray-100">
+            <div class="icon-totem-lg shrink-0">{option.icon}</div>
             <div class="flex-1">
-              <h2 class="text-3xl totem:text-2xl font-bold text-gray-800 mb-4">{option.title}</h2>
-              <p class="text-xl totem:text-base text-gray-600 mb-6">{option.description}</p>
-              <ul class="space-y-3 totem:space-y-2">
-                {#each option.details as detail}
-                  <li class="flex items-start gap-3 totem:gap-2">
-                    <span class="text-aido-red text-2xl totem:text-xl">✓</span>
-                    <span class="text-lg totem:text-base text-gray-700">{detail}</span>
-                  </li>
-                {/each}
-              </ul>
+              <h2 class="text-totem-4xl font-bold text-gray-800 leading-tight mb-1">
+                {option.title}
+              </h2>
+              <p class="text-totem-xl text-gray-500 font-medium">
+                {option.subtitle}
+              </p>
             </div>
           </div>
+          
+          <!-- Descrizione -->
+          <p class="text-totem-2xl text-gray-700 mb-6 leading-relaxed">
+            {option.description}
+          </p>
+          
+          <!-- Lista dettagli -->
+          <ul class="space-y-4">
+            {#each option.details as detail}
+              <li class="flex items-start gap-4">
+                <span class="text-aido-red text-totem-3xl shrink-0 font-bold">✓</span>
+                <span class="text-totem-xl text-gray-700 leading-relaxed flex-1">
+                  {detail}
+                </span>
+              </li>
+            {/each}
+          </ul>
         </div>
       {/each}
     </div>
+  </div>
+  
+  <!-- Footer con pulsante -->
+  <div class="totem-actions px-totem pb-totem shrink-0">
+    <BackButton />
   </div>
 </div>
