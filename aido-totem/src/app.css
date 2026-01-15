@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   VARIABILI AIDO
+   ========================= */
+:root {
+  --aido-red: #C1272D;
+  --aido-orange: #FF5722;
+  --aido-dark: #1a1a2e;
+  --aido-blue: #0f3460;
+
+  --totem-radius: 2rem;
+  --totem-button-height: 60px;
+}
+
+/* =========================
+   BASE
+   ========================= */
+@layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    touch-action: manipulation;
+    user-select: none;
+    background: linear-gradient(
+      to bottom right,
+      #4c1d95,
+      #5b21b6,
+      #1e3a8a
+    );
+    width: 530.44px;
+    height: 943.36px;
+    position: relative;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* =========================
+   UTILITY COLORI AIDO
+   (sostituisce tailwind.config.js)
+   ========================= */
+@layer utilities {
+  .bg-aido-red { background-color: var(--aido-red); }
+  .bg-aido-orange { background-color: var(--aido-orange); }
+  .bg-aido-dark { background-color: var(--aido-dark); }
+  .bg-aido-blue { background-color: var(--aido-blue); }
+
+  .text-aido-red { color: var(--aido-red); }
+  .text-aido-orange { color: var(--aido-orange); }
+  .text-aido-dark { color: var(--aido-dark); }
+  .text-aido-blue { color: var(--aido-blue); }
+}
+
+/* =========================
+   COMPONENTI TOTEM
+   ========================= */
+@layer components {
+  .totem-card {
+    background: white;
+    border-radius: var(--totem-radius);
+    padding: 2rem;
+    min-height: 200px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+
+  .totem-card:hover {
+    transform: scale(1.02);
+  }
+
+  .totem-button {
+    background-color: var(--aido-red);
+    color: white;
+    min-height: var(--totem-button-height);
+    min-width: 200px;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-size: 1.25rem;
+    font-weight: bold;
+    box-shadow: 0 10px 25px rgba(0,0,0,.3);
+    transition: transform .2s ease, background-color .2s ease;
+  }
+
+  .totem-button:hover {
+    background-color: #a61f25;
+  }
+
+  .totem-button:active {
+    transform: scale(.95);
+  }
+
+  .qr-container {
+    width: 300px;
+    height: 300px;
+    background: white;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,.15);
+  }
+}
+
+/* =========================
+   STILI RESPONSIVE
+   ========================= */
+@screen totem {
+  :root {
+    --totem-radius: 1.5rem;
+  }
+  
+  .totem-card {
+    padding: 1.5rem;
+  }
+
+  .totem-button {
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+  }
+
+  .qr-container {
+    width: 250px;
+    height: 250px;
+  }
+}
