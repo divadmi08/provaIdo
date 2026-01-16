@@ -30,13 +30,7 @@
       path: '/faq',
       color: 'bg-purple-600'
     },
-    {
-      icon: '🤖',
-      title: 'Volontario digitale',
-      description: 'Assistente virtuale',
-      path: '/volontario-digitale',
-      color: 'bg-indigo-600'
-    },
+
     {
       icon: '📱',
       title: 'Scarica l\'app',
@@ -68,8 +62,8 @@
       <div class="totem-logo">
         <span class="totem-logo-text">aido</span>
       </div>
-      <h1 class="text-totem-5xl font-bold text-white">Menu Principale</h1>
-      <p class="text-totem-2xl text-white/90">Seleziona un'opzione</p>
+      <h1 class="text-totem-3xl sm:text-totem-5xl font-bold text-white">Menu Principale</h1>
+      <p class="text-totem-xl sm:text-totem-2xl text-white/90">Seleziona un'opzione</p>
     </div>
   </div>
   
@@ -87,22 +81,22 @@
           <!-- Contenuto card -->
           <div class="relative z-10 flex items-center gap-6">
             <!-- Icona -->
-            <div class="shrink-0 icon-totem-lg">
+            <div class="shrink-0 icon-totem-md sm:icon-totem-lg">
               {item.icon}
             </div>
             
             <!-- Testo -->
             <div class="flex-1 text-left">
-              <h3 class="text-totem-3xl font-bold text-gray-800 mb-2 leading-tight">
+              <h3 class="text-totem-xl sm:text-totem-2xl md:text-totem-3xl font-bold text-gray-800 mb-1 sm:mb-2 leading-tight">
                 {item.title}
               </h3>
-              <p class="text-totem-xl text-gray-600 leading-relaxed">
+              <p class="text-totem-sm sm:text-totem-lg md:text-totem-xl text-gray-600 leading-relaxed">
                 {item.description}
               </p>
             </div>
             
             <!-- Freccia -->
-            <div class="shrink-0 text-totem-3xl text-gray-400 group-hover:text-aido-red group-hover:translate-x-1 transition-all">
+            <div class="shrink-0 text-totem-xl sm:text-totem-2xl md:text-totem-3xl text-gray-400 group-hover:text-aido-red group-hover:translate-x-1 transition-all">
               →
             </div>
           </div>

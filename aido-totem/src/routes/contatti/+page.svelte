@@ -1,5 +1,4 @@
 <script>
-  import BackButton from '$lib/components/BackButton.svelte';
   
   const contacts = [
     {
@@ -45,7 +44,7 @@
   ];
 </script>
 
-<div class="h-screen flex items-center justify-center p-8 overflow-y-auto">
+<div class="flex items-center justify-center p-8 overflow-y-auto h-full">
   <div class="max-w-6xl w-full py-20">
     <div class="text-center mb-12">
       <h1 class="text-5xl font-bold text-white mb-4">Contatti AIDO</h1>
@@ -68,6 +67,6 @@
       {/each}
     </div>
     
-    <BackButton />
+    
   </div>
 </div>

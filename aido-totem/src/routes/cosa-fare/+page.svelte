@@ -1,5 +1,4 @@
 <script>
-  import BackButton from '$lib/components/BackButton.svelte';
   
   const options = [
     {
@@ -38,7 +37,7 @@
   ];
 </script>
 
-<div class="h-totem-screen flex flex-col">
+<div class="flex flex-col h-full">
   <!-- Header -->
   <div class="totem-header px-totem pt-totem shrink-0">
     <h1 class="text-totem-5xl font-bold text-white mb-3">Dove iscriversi?</h1>
@@ -86,6 +85,6 @@
   
   <!-- Footer con pulsante -->
   <div class="totem-actions px-totem pb-totem shrink-0">
-    <BackButton />
+    
   </div>
 </div>

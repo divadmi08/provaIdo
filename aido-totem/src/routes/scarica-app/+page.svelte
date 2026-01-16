@@ -1,9 +1,9 @@
 <script>
-  import BackButton from '$lib/components/BackButton.svelte';
+  
   import QRCode from '$lib/components/QRCode.svelte';
 </script>
 
-<div class="h-screen flex items-center justify-center p-8 overflow-y-auto">
+<div class="flex items-center justify-center p-8 overflow-y-auto h-full">
   <div class="max-w-6xl w-full py-20">
     <div class="text-center mb-12">
       <h1 class="text-5xl font-bold text-white mb-4">Scarica l'App AIDO</h1>
@@ -54,6 +54,6 @@
       </div>
     </div>
     
-    <BackButton />
+    
   </div>
 </div>

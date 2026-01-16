@@ -26,16 +26,24 @@
     timestamp: Date;
   };
 
+
+
   /* =========================
      STATE (RUNES)
      ========================= */
-  const messages = $state<Message[]>([
-    { type: 'bot', text: initialMessage, timestamp: new Date() }
-  ]);
+  const messages = $state<Message[]>([]);
   let input = $state('');
   let isTyping = $state(false);
 
   let chatContainer: HTMLDivElement | null = null;
+
+  let initialized = false;
+  $effect(() => {
+    if (!initialized && messages.length === 0) {
+      messages.push({ type: 'bot', text: initialMessage, timestamp: new Date() });
+      initialized = true;
+    }
+  });
 
   /* =========================
      FAQ DATA
@@ -164,7 +172,7 @@
     <input
       class="flex-1 border rounded px-4 py-2"
       bind:value={input}
-      on:keydown={handleKeyDown}
+      onkeydown={handleKeyDown}
       {placeholder}
       disabled={isTyping}
     />

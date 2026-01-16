@@ -1,5 +1,4 @@
 <script>
-  import BackButton from '$lib/components/BackButton.svelte';
   
   let activeIndex = -1;
   
@@ -31,7 +30,7 @@
   ];
 </script>
 
-<div class="h-totem-screen flex flex-col">
+<div class="flex flex-col h-full">
   <!-- Header -->
   <div class="totem-header px-totem pt-totem shrink-0">
     <h1 class="text-totem-5xl font-bold text-white mb-3">Domande Frequenti</h1>
@@ -77,28 +76,12 @@
       {/each}
       
       <!-- CTA Volontario digitale -->
-      <div class="totem-card bg-gradient-to-br from-blue-50 to-purple-50 mt-8">
-        <div class="text-center space-y-5">
-          <div class="icon-totem-lg">🤖</div>
-          <h2 class="text-totem-3xl font-bold text-gray-800">
-            Hai altre domande?
-          </h2>
-          <p class="text-totem-xl text-gray-600 leading-relaxed">
-            Chatta con il nostro volontario digitale
-          </p>
-          <button 
-            on:click={() => window.location.href = '/volontario-digitale'}
-            class="totem-button mx-auto"
-          >
-            Avvia chat →
-          </button>
-        </div>
-      </div>
+      
     </div>
   </div>
   
   <!-- Footer -->
   <div class="totem-actions px-totem pb-totem shrink-0">
-    <BackButton />
+    
   </div>
 </div>

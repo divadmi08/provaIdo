@@ -59,6 +59,8 @@
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'x-api-key': '', // TODO: Aggiungi la tua API key
+          'anthropic-version': '2023-06-01',
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
@@ -67,8 +69,12 @@
         }),
       });
       
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
-      const assistantMessage = data.content.find((c: any) => c.type === 'text')?.text || 'Mi dispiace, non sono riuscito a rispondere.';
+      const assistantMessage = data.content?.find((c: any) => c.type === 'text')?.text || 'Mi dispiace, non sono riuscito a rispondere.';
       
       messages = [...messages, { role: 'assistant', content: assistantMessage }];
     } catch (error) {
@@ -314,7 +320,7 @@
             <input
               type="text"
               bind:value={input}
-              on:keypress={handleKeyPress}
+              on:keydown={handleKeyPress}
               placeholder="Scrivi un messaggio..."
               disabled={isLoading}
               class="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"

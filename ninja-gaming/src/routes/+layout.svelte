@@ -2,8 +2,7 @@
   import Title from '$lib/components/title.svelte';
   import '$lib/styles/global.css';
   
-  let { children } = $props(); 
-  console.log('Layout principale caricato');
+  let { children } = $props();
 </script>
 
 <header>

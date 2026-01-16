@@ -292,8 +292,100 @@
 }
 
 /* =========================
-   MEDIA QUERIES TOTEM VERTICALE
+   MEDIA QUERIES RESPONSIVE
    ========================= */
+
+/* MOBILE DEVICES (320px - 767px) */
+@media (max-width: 767px) {
+  :root {
+    --totem-padding: 1rem;
+    --totem-padding-x: 1rem;
+    --totem-padding-y: 1.5rem;
+    --totem-radius: 0.75rem;
+    --totem-button-height: 50px;
+    --spacing-section: 1.5rem;
+    --spacing-card: 1rem;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .totem-card {
+    min-height: 100px;
+    padding: 1rem;
+  }
+
+  .totem-button {
+    min-width: 150px;
+    font-size: 0.9rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .qr-container {
+    width: 200px;
+    height: 200px;
+    max-width: 90vw;
+  }
+
+  .responsive-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .totem-two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* TABLET DEVICES (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --totem-padding: 1.5rem;
+    --totem-padding-x: 2rem;
+    --totem-padding-y: 2rem;
+    --totem-radius: 1rem;
+    --totem-button-height: 60px;
+  }
+
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .totem-two-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* DESKTOP DEVICES (1024px+) */
+@media (min-width: 1024px) {
+  :root {
+    --totem-padding: 2rem;
+    --totem-padding-x: 3rem;
+    --totem-padding-y: 2.5rem;
+    --totem-radius: 1.5rem;
+    --totem-button-height: 70px;
+    --spacing-section: 3rem;
+  }
+
+  .responsive-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .totem-two-col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .page-container {
+    max-width: 1200px;
+  }
+}
 
 /* TOTEM PORTRAIT MODE (uso principale) */
 /* Aspect ratio ~0.56 (9:16) - 550mm × 980mm */
@@ -462,6 +554,18 @@
 
   .icon-xl {
     font-size: clamp(5rem, 12vw, 8rem);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 }
 

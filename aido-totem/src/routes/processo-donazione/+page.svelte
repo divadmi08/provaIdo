@@ -1,8 +1,8 @@
 <script>
-  import BackButton from '$lib/components/BackButton.svelte';
+  
 </script>
 
-<div class="h-screen flex items-center justify-center p-8 overflow-y-auto">
+<div class="flex items-center justify-center p-8 overflow-y-auto h-full">
   <div class="max-w-5xl w-full py-20">
     <div class="text-center mb-12">
       <h1 class="text-5xl font-bold text-white mb-4">Il Processo di Donazione</h1>
@@ -44,6 +44,6 @@
       </div>
     </div>
     
-    <BackButton />
+    
   </div>
 </div>
