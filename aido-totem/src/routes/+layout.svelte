@@ -15,10 +15,7 @@
 		() => import('./faq/+page.svelte'),
 		() => import('./scarica-app/+page.svelte'),
 		() => import('./documenti/+page.svelte'),
-		() => import('./contatti/+page.svelte'),
-		() => import('./diagnosi-morte/+page.svelte'),
-		() => import('./donazione-vivente/+page.svelte'),
-		() => import('./arresto-cardiaco/+page.svelte')
+		() => import('./contatti/+page.svelte')
 	];
 
 	let isChatbotModalOpen = $state(false);
@@ -36,9 +33,6 @@
 	}
 </script>
 
-<div>
-	
-</div>
 <InfiniteCarousel pages={carouselPages} />
 
 {@render children?.()}

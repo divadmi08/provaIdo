@@ -6,23 +6,18 @@
 	/* =========================
      PROPS
   ========================== */
-
-	// Array di funzioni che caricano componenti in modo lazy
-	export let pages: any;
+	let { pages = [] } = $props<{ pages: Array<() => Promise<any>> }>();
 
 	/* =========================
      STATE
   ========================== */
-
 	let currentPageIndex = $state(0);
 	let loadedComponents = $state<Map<number, Component>>(new Map());
 	let isAutoScrolling = $state(false);
 
-
 	/* =========================
      AUTO SCROLL / INACTIVITY
   ========================== */
-
 	const INACTIVITY_THRESHOLD = 2 * 60 * 1000; // 2 minuti
 	const AUTO_SCROLL_INTERVAL = 1 * 60 * 1000; // 1 minuto
 
@@ -32,14 +27,15 @@
 	/* =========================
      LAZY LOAD PAGE
   ========================== */
-
 	async function loadCurrentPage() {
 		if (!browser || pages.length === 0 || loadedComponents.has(currentPageIndex)) return;
 
 		try {
 			const loader = pages[currentPageIndex];
 			const module = await loader();
-			loadedComponents.set(currentPageIndex, module.default);
+			const newMap = new Map(loadedComponents);
+			newMap.set(currentPageIndex, module.default);
+			loadedComponents = newMap;
 		} catch (error) {
 			console.error('Errore nel caricamento della pagina:', error);
 		}
@@ -54,11 +50,10 @@
 	/* =========================
      INACTIVITY LOGIC
   ========================== */
-
 	function startInactivityTimer() {
 		if (!browser) return;
 
-		clearTimeout(inactivityTimeoutId!);
+		if (inactivityTimeoutId) clearTimeout(inactivityTimeoutId);
 		inactivityTimeoutId = setTimeout(startAutoScroll, INACTIVITY_THRESHOLD);
 	}
 
@@ -73,7 +68,7 @@
 		if (!browser || pages.length <= 1) return;
 
 		isAutoScrolling = true;
-		clearInterval(autoScrollIntervalId!);
+		if (autoScrollIntervalId) clearInterval(autoScrollIntervalId);
 
 		autoScrollIntervalId = setInterval(() => {
 			nextPage(false);
@@ -84,14 +79,15 @@
 		if (!browser) return;
 
 		isAutoScrolling = false;
-		clearInterval(autoScrollIntervalId!);
-		autoScrollIntervalId = null;
+		if (autoScrollIntervalId) {
+			clearInterval(autoScrollIntervalId);
+			autoScrollIntervalId = null;
+		}
 	}
 
 	/* =========================
      NAVIGATION
   ========================== */
-
 	function nextPage(fromUser = true) {
 		if (fromUser) resetInactivityTimer();
 		currentPageIndex = (currentPageIndex + 1) % pages.length;
@@ -119,11 +115,9 @@
 	/* =========================
      LIFECYCLE
   ========================== */
-
 	onMount(() => {
 		if (!browser) return;
 
-		// Carica la prima pagina
 		if (pages.length > 0) {
 			loadCurrentPage();
 		}
@@ -139,8 +133,8 @@
 	onDestroy(() => {
 		if (!browser) return;
 
-		clearTimeout(inactivityTimeoutId!);
-		clearInterval(autoScrollIntervalId!);
+		if (inactivityTimeoutId) clearTimeout(inactivityTimeoutId);
+		if (autoScrollIntervalId) clearInterval(autoScrollIntervalId);
 
 		window.removeEventListener('mousemove', resetInactivityTimer);
 		window.removeEventListener('mousedown', resetInactivityTimer);
@@ -179,7 +173,10 @@
 				tabindex="-1"
 			>
 				{#if loadedComponents.has(i)}
-					<svelte:component this={loadedComponents.get(i)} />
+					{@const Component = loadedComponents.get(i)}
+					{#if Component}
+						<Component />
+					{/if}
 				{:else if i === currentPageIndex}
 					<div class="flex h-full w-full items-center justify-center">Caricamento…</div>
 				{/if}
@@ -188,7 +185,6 @@
 	</div>
 
 	<!-- CONTROLLI -->
-
 	<button
 		class="left-2 sm:left-4 bg-black/50 hover:bg-black/70 text-white p-2 sm:p-4 text-xl sm:text-2xl absolute top-1/2 z-10 -translate-y-1/2 rounded-full transition-colors"
 		onclick={() => prevPage(true)}
@@ -208,7 +204,6 @@
 	</button>
 
 	<!-- STATUS -->
-
 	<div
 		class="bottom-2 sm:bottom-4 bg-gray-700 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 absolute left-1/2 z-10 -translate-x-1/2 rounded-full"
 	>

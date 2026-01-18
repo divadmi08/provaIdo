@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	// import { goto } from '$app/navigation'; // Keep if we need navigation for other things inside modal, else remove
-	// import QRCode from 'qrcode'; // No longer needed
-	// import type { SvelteComponent } from 'svelte'; // Add this for message types if needed
 
 	let { onclose } = $props<{ onclose: () => void }>();
 	
@@ -11,27 +8,26 @@
 		text: string;
 	}
 
-	// New chatbot specific variables
-	let chatContainer: HTMLDivElement;
+	let chatContainer = $state<HTMLDivElement | null>(null);
 	let input = $state('');
-	let messages = $state([
+	let messages = $state<Message[]>([
 		{ type: 'bot', text: 'Ciao! Sono il tuo assistente digitale. Come posso aiutarti oggi?' }
 	]);
-	let suggestedQuestions: string[] = [
+	
+	const suggestedQuestions: string[] = [
 		"Cos'è la donazione di organi?",
 		'Come si diventa donatori?',
 		'Quali sono i requisiti per donare?'
 	];
 
 	onMount(() => {
-		// Add event listener for Escape key
 		window.addEventListener('keydown', handleKeydown);
 		return () => {
 			window.removeEventListener('keydown', handleKeydown);
 		};
 	});
 
-$effect(() => {
+	$effect(() => {
 		if (chatContainer) {
 			chatContainer.scrollTop = chatContainer.scrollHeight;
 		}
@@ -41,13 +37,11 @@ $effect(() => {
 		if (event.key === 'Escape') {
 			onclose();
 		}
-		// No explicit focus trapping in this simple modal, but it can be added if needed
 	}
 
 	function sendMessage() {
 		if (input.trim()) {
 			messages = [...messages, { type: 'user', text: input }];
-			// Simulate bot response
 			setTimeout(() => {
 				messages = [
 					...messages,
@@ -93,7 +87,6 @@ $effect(() => {
 			Assistente Digitale
 		</h2>
 
-		<!-- Chat area -->
 		<div class="min-h-0 flex flex-1 flex-col">
 			<div
 				bind:this={chatContainer}
@@ -133,7 +126,7 @@ $effect(() => {
 				<input
 					type="text"
 					value={input}
-                    oninput={(e) => input = e.currentTarget.value}
+					oninput={(e) => (input = e.currentTarget.value)}
 					onkeydown={handleKeyPress}
 					placeholder="Scrivi la tua domanda..."
 					class="text-sm sm:text-base px-2 sm:px-3 py-2 border-gray-300 rounded-md focus:border-aido-red flex-1 border outline-none"
@@ -151,7 +144,6 @@ $effect(() => {
 </div>
 
 <style>
-	/* Define 'aido-red' if not globally defined */
 	.bg-aido-red {
 		background-color: #e53e3e;
 	}
