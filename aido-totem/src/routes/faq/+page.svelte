@@ -1,8 +1,12 @@
-<script>
+<script lang="ts">
+  interface Faq {
+    question: string;
+    answer: string;
+  }
+
+  let activeIndex: number = -1;
   
-  let activeIndex = -1;
-  
-  const faqs = [
+  const faqs: Faq[] = [
     {
       question: "Chi può donare gli organi?",
       answer: "Tutti possono esprimere la volontà di donare, senza limiti di età. L'idoneità degli organi viene valutata al momento del decesso."

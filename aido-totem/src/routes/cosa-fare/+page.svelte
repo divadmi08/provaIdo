@@ -1,6 +1,13 @@
-<script>
+<script lang="ts">
+  interface Option {
+    title: string;
+    subtitle: string;
+    icon: string;
+    description: string;
+    details: string[];
+  }
   
-  const options = [
+  const options: Option[] = [
     {
       title: 'ASL',
       subtitle: 'Azienda Sanitaria Locale',

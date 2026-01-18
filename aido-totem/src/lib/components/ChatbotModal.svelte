@@ -7,13 +7,18 @@
 
   const dispatch = createEventDispatcher();
 
+  interface Message {
+    type: 'bot' | 'user';
+    text: string;
+  }
+
   // New chatbot specific variables
   let chatContainer: HTMLDivElement;
-  let input = '';
-  let messages = [
+  let input: string = '';
+  let messages: Message[] = [
     { type: 'bot', text: 'Ciao! Sono il tuo assistente digitale. Come posso aiutarti oggi?' }
   ];
-  let suggestedQuestions = [
+  let suggestedQuestions: string[] = [
     'Cos\'è la donazione di organi?',
     'Come si diventa donatori?',
     'Quali sono i requisiti per donare?'

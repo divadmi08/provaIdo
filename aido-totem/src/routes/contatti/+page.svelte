@@ -1,6 +1,11 @@
-<script>
+<script lang="ts">
+  interface Contact {
+    icon: string;
+    title: string;
+    details: string[];
+  }
   
-  const contacts = [
+  const contacts: Contact[] = [
     {
       icon: '🏢',
       title: 'Sede Nazionale AIDO',

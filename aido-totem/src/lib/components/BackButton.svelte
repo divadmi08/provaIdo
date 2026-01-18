@@ -1,8 +1,8 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation';
   
-  export let path = '/menu';
-  export let label = 'Torna al Menu';
+  export let path: string = '/menu';
+  export let label: string = 'Torna al Menu';
 </script>
 
 <div class="flex justify-center w-full mb-8">

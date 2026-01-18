@@ -6,8 +6,9 @@
   import ChatbotModal from "$lib/components/ChatbotModal.svelte";
   import { isChatbotModalOpen } from "$lib/stores/chatbotModalStore";
   import InfiniteCarousel from '$lib/components/InfiniteCarousel.svelte'; // New import
+  import type { ComponentType } from "svelte";
 
-  const carouselPages = [
+  const carouselPages: Array<() => Promise<ComponentType>> = [
     () => import("../routes/cosa-fare/+page.svelte").then((m) => m.default),
     () =>
       import("../routes/processo-donazione/+page.svelte").then(
@@ -31,11 +32,11 @@
     setupInactivityListeners();
   });
 
-  function openChatbotModal() {
+  function openChatbotModal(): void {
     isChatbotModalOpen.set(true);
   }
 
-  function closeChatbotModal() {
+  function closeChatbotModal(): void {
     isChatbotModalOpen.set(false);
   }
 </script>

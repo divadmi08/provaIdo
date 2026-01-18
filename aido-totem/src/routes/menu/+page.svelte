@@ -1,7 +1,15 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation';
+
+  interface MenuItem {
+    icon: string;
+    title: string;
+    description: string;
+    path: string;
+    color: string;
+  }
   
-  const menuSections = [
+  const menuSections: MenuItem[] = [
     {
       icon: '📋',
       title: 'Cosa devo fare?',
