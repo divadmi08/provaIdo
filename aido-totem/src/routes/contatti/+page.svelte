@@ -39,22 +39,26 @@
 	];
 </script>
 
-<div class="p-8 flex h-full items-center justify-center overflow-y-auto">
-	<div class="max-w-6xl py-20 w-full">
-		<div class="mb-12 text-center">
-			<h1 class="text-5xl font-bold text-white mb-4">Contatti AIDO</h1>
-			<p class="text-2xl text-white/80">Come raggiungerci</p>
-		</div>
+<div class="flex h-full flex-col items-center justify-center p-8">
+	<!-- Titolo fuori dal box -->
+	<div class="totem-page-header">
+		<h1 class="totem-page-title">Contatti AIDO</h1>
+		<p class="totem-page-subtitle">Come raggiungerci</p>
+	</div>
 
-		<div class="md:grid-cols-2 gap-8 mb-24 grid">
+	<!-- Box bianco centrale -->
+	<div class="totem-content-box w-full">
+		<div class="grid gap-8 md:grid-cols-2">
 			{#each contacts as contact}
-				<div class="totem-card">
+				<div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-md border border-gray-100">
 					<div class="text-center">
 						<div class="text-7xl mb-4">{contact.icon}</div>
 						<h3 class="text-3xl font-bold text-gray-800 mb-6">{contact.title}</h3>
 						<div class="space-y-3">
 							{#each contact.details as detail}
-								<p class="text-xl text-gray-600">{detail}</p>
+								{#if detail}
+									<p class="text-xl text-gray-600">{detail}</p>
+								{/if}
 							{/each}
 						</div>
 					</div>

@@ -6,7 +6,7 @@ import { goto } from '$app/navigation';
  */
 export const inactivityTimer = writable(null); // Initialize with null
 
-const TIMEOUT = 60000; // 60 secondi di inattività
+const TIMEOUT = 10000; // 60 secondi di inattività
 
 export function resetInactivityTimer() {
 	if (typeof window === 'undefined') return;

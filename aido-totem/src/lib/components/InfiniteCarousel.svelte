@@ -18,8 +18,8 @@
 	/* =========================
      AUTO SCROLL / INACTIVITY
   ========================== */
-	const INACTIVITY_THRESHOLD = 2 * 60 * 1000; // 2 minuti
-	const AUTO_SCROLL_INTERVAL = 1 * 60 * 1000; // 1 minuto
+	const INACTIVITY_THRESHOLD = 30 * 1000; // 30 secondi per test (cambia a 2 * 60 * 1000 per produzione)
+	const AUTO_SCROLL_INTERVAL = 10 * 1000; // 10 secondi per test (cambia a 1 * 60 * 1000 per produzione)
 
 	let inactivityTimeoutId: ReturnType<typeof setTimeout> | null = null;
 	let autoScrollIntervalId: ReturnType<typeof setInterval> | null = null;
@@ -54,12 +54,19 @@
 		if (!browser) return;
 
 		if (inactivityTimeoutId) clearTimeout(inactivityTimeoutId);
-		inactivityTimeoutId = setTimeout(startAutoScroll, INACTIVITY_THRESHOLD);
+		
+		console.log('⏱️ Timer inattività avviato:', INACTIVITY_THRESHOLD / 1000, 'secondi');
+		
+		inactivityTimeoutId = setTimeout(() => {
+			console.log('⚡ Timeout inattività raggiunto - avvio auto-scroll');
+			startAutoScroll();
+		}, INACTIVITY_THRESHOLD);
 	}
 
 	function resetInactivityTimer() {
 		if (!browser) return;
 
+		console.log('🔄 Reset timer inattività');
 		stopAutoScroll();
 		startInactivityTimer();
 	}
@@ -67,10 +74,13 @@
 	function startAutoScroll() {
 		if (!browser || pages.length <= 1) return;
 
+		console.log('▶️ AUTO-SCROLL ATTIVATO - intervallo:', AUTO_SCROLL_INTERVAL / 1000, 'secondi');
 		isAutoScrolling = true;
+		
 		if (autoScrollIntervalId) clearInterval(autoScrollIntervalId);
 
 		autoScrollIntervalId = setInterval(() => {
+			console.log('➡️ Auto-scroll: prossima pagina');
 			nextPage(false);
 		}, AUTO_SCROLL_INTERVAL);
 	}
@@ -78,6 +88,10 @@
 	function stopAutoScroll() {
 		if (!browser) return;
 
+		if (isAutoScrolling) {
+			console.log('⏸️ AUTO-SCROLL DISATTIVATO');
+		}
+		
 		isAutoScrolling = false;
 		if (autoScrollIntervalId) {
 			clearInterval(autoScrollIntervalId);
@@ -89,12 +103,20 @@
      NAVIGATION
   ========================== */
 	function nextPage(fromUser = true) {
-		if (fromUser) resetInactivityTimer();
+		if (fromUser) {
+			console.log('👆 Click utente: prossima pagina');
+			resetInactivityTimer();
+		} else {
+			console.log('🤖 Auto-scroll: prossima pagina');
+		}
 		currentPageIndex = (currentPageIndex + 1) % pages.length;
 	}
 
 	function prevPage(fromUser = true) {
-		if (fromUser) resetInactivityTimer();
+		if (fromUser) {
+			console.log('👆 Click utente: pagina precedente');
+			resetInactivityTimer();
+		}
 		currentPageIndex = (currentPageIndex - 1 + pages.length) % pages.length;
 	}
 
@@ -118,6 +140,11 @@
 	onMount(() => {
 		if (!browser) return;
 
+		console.log('🚀 InfiniteCarousel montato');
+		console.log('📄 Numero pagine:', pages.length);
+		console.log('⏱️ Inattività threshold:', INACTIVITY_THRESHOLD / 1000, 'sec');
+		console.log('⏱️ Auto-scroll interval:', AUTO_SCROLL_INTERVAL / 1000, 'sec');
+
 		if (pages.length > 0) {
 			loadCurrentPage();
 		}
@@ -133,6 +160,8 @@
 	onDestroy(() => {
 		if (!browser) return;
 
+		console.log('🧹 InfiniteCarousel smontato - pulizia');
+		
 		if (inactivityTimeoutId) clearTimeout(inactivityTimeoutId);
 		if (autoScrollIntervalId) clearInterval(autoScrollIntervalId);
 
@@ -207,7 +236,17 @@
 	<div
 		class="bottom-2 sm:bottom-4 bg-gray-700 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 absolute left-1/2 z-10 -translate-x-1/2 rounded-full"
 	>
-		{isAutoScrolling ? 'Auto-scrolling ON' : 'Auto-scrolling OFF (inattività)'}
+		{#if isAutoScrolling}
+			<span class="inline-flex items-center gap-2">
+				<span class="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+				Auto-scrolling ON
+			</span>
+		{:else}
+			<span class="inline-flex items-center gap-2">
+				<span class="inline-block w-2 h-2 bg-yellow-400 rounded-full"></span>
+				Interazione utente
+			</span>
+		{/if}
 	</div>
 
 	<div class="sr-only" aria-live="polite">
