@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	// import { goto } from '$app/navigation'; // Keep if we need navigation for other things inside modal, else remove
 	// import QRCode from 'qrcode'; // No longer needed
 	// import type { SvelteComponent } from 'svelte'; // Add this for message types if needed
-	import { isChatbotModalOpen } from '$lib/stores/chatbotModalStore'; // Import the store
 
-	const dispatch = createEventDispatcher();
-
+	let { onclose } = $props<{ onclose: () => void }>();
+	
 	interface Message {
 		type: 'bot' | 'user';
 		text: string;
@@ -14,10 +13,10 @@
 
 	// New chatbot specific variables
 	let chatContainer: HTMLDivElement;
-	let input: string = '';
-	let messages: Message[] = [
+	let input = $state('');
+	let messages = $state([
 		{ type: 'bot', text: 'Ciao! Sono il tuo assistente digitale. Come posso aiutarti oggi?' }
-	];
+	]);
 	let suggestedQuestions: string[] = [
 		"Cos'è la donazione di organi?",
 		'Come si diventa donatori?',
@@ -40,13 +39,9 @@ $effect(() => {
 
 	function handleKeydown(event: KeyboardEvent) {
 		if (event.key === 'Escape') {
-			closeChatbot();
+			onclose();
 		}
 		// No explicit focus trapping in this simple modal, but it can be added if needed
-	}
-
-	function closeChatbot() {
-		isChatbotModalOpen.set(false); // Close modal using the store
 	}
 
 	function sendMessage() {
@@ -82,12 +77,12 @@ $effect(() => {
 	role="dialog"
 >
 	<div
-		class="bg-white rounded-lg shadow-xl p-4 sm:p-6 sm:w-full max-w-md sm:max-w-lg sm:h-5/6 sm:max-h-none relative flex h-[90vh] max-h-[600px] w-11/12 flex-col"
+		class="bg-white rounded-lg shadow-xl p-4 sm:p-6 sm:w-full max-w-md sm:max-w-lg sm:h-5/6 sm:max-h-none relative flex h-[90vh] max-h-[37.5rem] w-11/12 flex-col"
 		aria-labelledby="chatbot-modal-title"
 		tabindex="-1"
 	>
 		<button
-			onclick={closeChatbot}
+			onclick={onclose}
 			class="top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl absolute"
 			aria-label="Close Chatbot Modal"
 		>
@@ -137,7 +132,8 @@ $effect(() => {
 			<div class="bg-white rounded-lg p-2 gap-2 shadow-inner border-gray-200 flex border">
 				<input
 					type="text"
-					bind:value={input}
+					value={input}
+                    oninput={(e) => input = e.currentTarget.value}
 					onkeydown={handleKeyPress}
 					placeholder="Scrivi la tua domanda..."
 					class="text-sm sm:text-base px-2 sm:px-3 py-2 border-gray-300 rounded-md focus:border-aido-red flex-1 border outline-none"

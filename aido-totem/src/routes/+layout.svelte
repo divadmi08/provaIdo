@@ -1,52 +1,50 @@
 <script lang="ts">
-  import "../app.css";
-  import { onMount } from "svelte";
-  import { setupInactivityListeners } from "$lib/stores/inactivity";
-  import ChatbotButton from "$lib/components/ChatbotButton.svelte";
-  import ChatbotModal from "$lib/components/ChatbotModal.svelte";
-  import { isChatbotModalOpen } from "$lib/stores/chatbotModalStore";
-  import InfiniteCarousel from '$lib/components/InfiniteCarousel.svelte'; // New import
-  import type { ComponentType } from "svelte";
+	import './layout.css';
+	import { onMount } from 'svelte';
+	import { setupInactivityListeners } from '$lib/stores/inactivity';
+	import ChatbotButton from '$lib/components/ChatbotButton.svelte';
+	import ChatbotModal from '$lib/components/ChatbotModal.svelte';
+	import InfiniteCarousel from '$lib/components/InfiniteCarousel.svelte';
 
-  const carouselPages: Array<() => Promise<ComponentType>> = [
-    () => import("../routes/cosa-fare/+page.svelte").then((m) => m.default),
-    () =>
-      import("../routes/processo-donazione/+page.svelte").then(
-        (m) => m.default,
-      ),
-    () =>
-      import("../routes/diventa-donatore/+page.svelte").then((m) => m.default),
-    () => import("../routes/faq/+page.svelte").then((m) => m.default),
-    () => import("../routes/scarica-app/+page.svelte").then((m) => m.default),
-    () => import("../routes/documenti/+page.svelte").then((m) => m.default),
-    () => import("../routes/contatti/+page.svelte").then((m) => m.default),
-    () =>
-      import("../routes/diagnosi-morte/+page.svelte").then((m) => m.default),
-    () =>
-      import("../routes/donazione-vivente/+page.svelte").then((m) => m.default),
-    () =>
-      import("../routes/arresto-cardiaco/+page.svelte").then((m) => m.default),
-  ];
+	let { children } = $props<{ children: any }>();
 
-  onMount(() => {
-    setupInactivityListeners();
-  });
+	const carouselPages = [
+		() => import('./cosa-fare/+page.svelte'),
+		() => import('./processo-donazione/+page.svelte'),
+		() => import('./diventa-donatore/+page.svelte'),
+		() => import('./faq/+page.svelte'),
+		() => import('./scarica-app/+page.svelte'),
+		() => import('./documenti/+page.svelte'),
+		() => import('./contatti/+page.svelte'),
+		() => import('./diagnosi-morte/+page.svelte'),
+		() => import('./donazione-vivente/+page.svelte'),
+		() => import('./arresto-cardiaco/+page.svelte')
+	];
 
-  function openChatbotModal(): void {
-    isChatbotModalOpen.set(true);
-  }
+	let isChatbotModalOpen = $state(false);
 
-  function closeChatbotModal(): void {
-    isChatbotModalOpen.set(false);
-  }
+	onMount(() => {
+		setupInactivityListeners();
+	});
+
+	function openChatbotModal(): void {
+		isChatbotModalOpen = true;
+	}
+
+	function closeChatbotModal(): void {
+		isChatbotModalOpen = false;
+	}
 </script>
 
-<InfiniteCarousel pages={carouselPages} /> 
+<div>
+	
+</div>
+<InfiniteCarousel pages={carouselPages} />
 
-<slot />
+{@render children?.()}
 
-{#if $isChatbotModalOpen}
-  <ChatbotModal on:closeChatbot={closeChatbotModal} />
+{#if isChatbotModalOpen}
+	<ChatbotModal onclose={closeChatbotModal} />
 {/if}
 
-<ChatbotButton on:openChatbot={openChatbotModal} />
+<ChatbotButton onclick={openChatbotModal} />

@@ -1,15 +1,14 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  
-  export let path: string = '/menu';
-  export let label: string = 'Torna al Menu';
+	import { goto } from '$app/navigation';
+
+	let { path = '/menu', label = 'Torna al Menu' } = $props<{
+		path?: string;
+		label?: string;
+	}>();
 </script>
 
-<div class="flex justify-center w-full mb-8">
-  <button 
-    on:click={() => goto(path)}
-    class="totem-button totem:text-sm"
-  >
-    ← {label}
-  </button>
+<div class="mb-8 flex w-full justify-center">
+	<button onclick={() => goto(path)} class="totem-button totem:text-sm">
+		← {label}
+	</button>
 </div>
