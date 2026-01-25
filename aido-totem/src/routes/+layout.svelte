@@ -5,6 +5,7 @@
 	import ChatbotButton from '$lib/components/ChatbotButton.svelte';
 	import ChatbotModal from '$lib/components/ChatbotModal.svelte';
 	import InfiniteCarousel from '$lib/components/InfiniteCarousel.svelte';
+	import PopUp from '$lib/components/popUp.svelte';
 
 	let { children } = $props<{ children: any }>();
 
@@ -15,14 +16,15 @@
 		() => import('./faq/+page.svelte'),
 		() => import('./scarica-app/+page.svelte'),
 		() => import('./documenti/+page.svelte'),
-		() => import('./contatti/+page.svelte')
+		() => import('./contatti/+page.svelte'),
+		
 	];
 
 	let isChatbotModalOpen = $state(false);
 
-	onMount(() => {
+/* 	onMount(() => {
 		setupInactivityListeners();
-	});
+	}); */
 
 	function openChatbotModal(): void {
 		isChatbotModalOpen = true;
@@ -42,3 +44,5 @@
 {/if}
 
 <ChatbotButton onclick={openChatbotModal} />
+
+<PopUp/>

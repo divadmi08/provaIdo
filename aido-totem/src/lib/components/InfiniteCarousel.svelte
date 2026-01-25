@@ -71,7 +71,7 @@
 		startInactivityTimer();
 	}
 
-	function startAutoScroll() {
+	/* function startAutoScroll() {
 		if (!browser || pages.length <= 1) return;
 
 		console.log('▶️ AUTO-SCROLL ATTIVATO - intervallo:', AUTO_SCROLL_INTERVAL / 1000, 'secondi');
@@ -83,7 +83,7 @@
 			console.log('➡️ Auto-scroll: prossima pagina');
 			nextPage(false);
 		}, AUTO_SCROLL_INTERVAL);
-	}
+	} */
 
 	function stopAutoScroll() {
 		if (!browser) return;
