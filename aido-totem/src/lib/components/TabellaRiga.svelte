@@ -1,6 +1,6 @@
 <script lang="ts">
 	
-    import { hiddenPopUp, PopUp as PopUpStore, reSetData, saveData } from "$lib/stores/storePopUp";
+    import { hiddenPopUp, PopUp as PopUpStore, reSetData, saveData } from "$lib/stores/uploadPopupStore.svelte";
 
     let { img= $bindable(), nomeFyle= $bindable(), dataCaricamento= $bindable(),stato = $bindable(), elimina} = $props() 
     let statoModifica = $state(true);
