@@ -31,6 +31,8 @@
 		"@tailwindcss/forms": "^0.5.11",
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.1.18",
+		"@types/bcryptjs": "^2.4.6",
+		"@types/jsonwebtoken": "^9.0.10",
 		"@types/node": "^20",
 		"@vitest/browser-playwright": "^4.0.18",
 		"drizzle-kit": "^0.31.8",
@@ -53,6 +55,10 @@
 		"vitest-browser-svelte": "^2.0.2"
 	},
 	"dependencies": {
-		"mysql2": "^3.16.1"
+		"@types/qrcode": "^1.5.6",
+		"bcryptjs": "^3.0.3",
+		"jsonwebtoken": "^9.0.3",
+		"mysql2": "^3.16.1",
+		"qrcode": "^1.5.4"
 	}
 }
