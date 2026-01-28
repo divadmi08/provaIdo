@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { authStore } from '$lib/stores/authStore.svelte';
+	import { authStore } from '$lib/stores/auth.store';
 
 	let mostraMenu = $state(false);
 

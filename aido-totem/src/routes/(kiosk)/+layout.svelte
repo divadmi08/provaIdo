@@ -1,11 +1,11 @@
 <script lang="ts">
 	import './layout.css';
 	import { page } from '$app/stores';
-	import { authStore } from '$lib/stores/authStore.svelte';
+	import { authStore } from '$lib/stores/auth.store';
 	import { onMount } from 'svelte';
-	import ChatbotButton from '$lib/components/ChatbotButton.svelte';
-	import ChatbotModal from '$lib/components/ChatbotModal.svelte';
-	import InfiniteCarousel from '$lib/components/InfiniteCarousel.svelte';
+	import ChatbotButton from '$lib/components/chat/ChatbotButton.svelte';
+	import ChatbotModal from '$lib/components/chat/ChatbotModal.svelte';
+	import InfiniteCarousel from '$lib/components/carousel/InfiniteCarousel.svelte';
 
 	let { children } = $props<{ children: any }>();
 

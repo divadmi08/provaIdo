@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	
+
 
 	interface MenuItem {
 		icon: string;

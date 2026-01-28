@@ -2,18 +2,18 @@
  * Store per popup richiesta email documenti
  */
 
-class EmailPopupStore {
+class EmailModalStore {
 	mostra = $state(false);
 	documentiDaInviare = $state<string[]>([]);
 	emailUtente = $state('');
 	
-	apri(idsDocumenti: string[]) {
+	open(idsDocumenti: string[]) {
 		this.documentiDaInviare = idsDocumenti;
 		this.emailUtente = '';
 		this.mostra = true;
 	}
 	
-	chiudi() {
+	close() {
 		this.mostra = false;
 		this.documentiDaInviare = [];
 		this.emailUtente = '';
@@ -24,4 +24,4 @@ class EmailPopupStore {
 	}
 }
 
-export const emailPopupStore = new EmailPopupStore();
+export const emailModalStore = new EmailModalStore();

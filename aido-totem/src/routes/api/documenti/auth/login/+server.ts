@@ -1,67 +1,97 @@
-import type { RequestHandler } from './$types';
+// src/routes/api/auth/login/+server.ts
 import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
+import { hashPassword, verifyPassword, generateAccessToken, generateRefreshToken } from '$lib/utils/crypto.utils';
+import type { User } from '$lib/types/auth.types';
 
-// Utenti di test (in produzione: database)
-const UTENTI_TEST = [
-	{
-		id: 'admin-1',
-		email: 'admin@aido.it',
-		password: 'admin123',
-		nome: 'Admin AIDO',
-		ruolo: 'admin' as const
-	},
-	{
-		id: 'user-1',
-		email: 'utente@aido.it',
-		password: 'user123',
-		nome: 'Utente Test',
-		ruolo: 'user' as const
-	},
-	{
-		id: 'user-2',
-		email: 'mario.rossi@email.it',
-		password: 'password',
-		nome: 'Mario Rossi',
-		ruolo: 'user' as const
-	}
+/**
+ * Mock user database
+ * In production, replace with actual database queries
+ */
+const MOCK_USERS: (User & { passwordHash: string })[] = [
+  {
+    id: crypto.randomUUID(),
+    email: 'admin@aido.it',
+    passwordHash: await hashPassword('admin123'), // Pre-hashed in production
+    nome: 'Admin AIDO',
+    ruolo: 'admin',
+    createdAt: new Date('2024-01-01'),
+    updatedAt: new Date('2024-01-01')
+  },
+  {
+    id: crypto.randomUUID(),
+    email: 'utente@aido.it',
+    passwordHash: await hashPassword('user123'),
+    nome: 'Utente Test',
+    ruolo: 'user',
+    createdAt: new Date('2024-01-01'),
+    updatedAt: new Date('2024-01-01')
+  }
 ];
 
+/**
+ * POST /api/auth/login
+ * Authenticate user and return JWT tokens
+ */
 export const POST: RequestHandler = async ({ request, cookies }) => {
-	try {
-		const { email, password } = await request.json();
+  try {
+    const { email, password } = await request.json();
 
-		// Validazione input
-		if (!email || !password) {
-			return json({ error: 'Email e password obbligatorie' }, { status: 400 });
-		}
+    // Input validation
+    if (!email || !password) {
+      return json(
+        { error: 'Email and password are required' },
+        { status: 400 }
+      );
+    }
 
-		// Cerca utente
-		const utente = UTENTI_TEST.find(
-			(u) => u.email === email && u.password === password
-		);
+    // Find user
+    const user = MOCK_USERS.find(u => u.email === email);
+    if (!user) {
+      return json(
+        { error: 'Invalid credentials' },
+        { status: 401 }
+      );
+    }
 
-		if (!utente) {
-			return json({ error: 'Credenziali non valide' }, { status: 401 });
-		}
+    // Verify password
+    const isValidPassword = await verifyPassword(password, user.passwordHash);
+    if (!isValidPassword) {
+      return json(
+        { error: 'Invalid credentials' },
+        { status: 401 }
+      );
+    }
 
-		// In produzione: genera JWT token
-		const token = Buffer.from(JSON.stringify({ id: utente.id })).toString('base64');
+    // Generate tokens
+    const accessToken = generateAccessToken(user);
+    const refreshToken = generateRefreshToken(user.id);
 
-		// Imposta cookie sessione
-		cookies.set('session', token, {
-			path: '/',
-			httpOnly: true,
-			secure: false, // true in produzione con HTTPS
-			sameSite: 'lax',
-			maxAge: 60 * 60 * 24 * 7 // 7 giorni
-		});
+    // Set refresh token as HTTP-only cookie
+    cookies.set('refreshToken', refreshToken, {
+      path: '/',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 60 * 60 * 24 * 30 // 30 days
+    });
 
-		// Ritorna utente (senza password)
-		const { password: _, ...utentePublic } = utente;
+    // Return user data and access token
+    const { passwordHash: _, ...userPublic } = user;
 
-		return json({ utente: utentePublic });
-	} catch (error) {
-		console.error('Errore login:', error);
-		return json({ error: 'Errore del server' }, { status: 500 });
-	}
+    return json({
+      user: userPublic,
+      tokens: {
+        accessToken,
+        refreshToken // Also return in body for mobile apps
+      }
+    });
+
+  } catch (error) {
+    console.error('Login error:', error);
+    return json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
 };

@@ -2,7 +2,7 @@
 	
 	import { PopUp as PopUpStore, reSetData, showPopUp, showCheck } from "$lib/stores/storePopUp";
 	
-	import BottoneDeafoultStyle from "$lib/components/bottoneDeafoultStyle.svelte";
+	import BottoneDeafoultStyle from "$lib/components/common/bottoneDeafoultStyle.svelte";
 	
 	import TabellaRiga from "$lib/components/TabellaRiga.svelte";
 

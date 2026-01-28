@@ -21,12 +21,12 @@
 -->
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { documentiStore } from '$lib/stores/documentiStore.svelte';
-	import { authStore } from '$lib/stores/authStore.svelte';
-	import TabellaDocumenti from '$lib/components/documenti/TabellaDocumenti.svelte';
-	import PopupCaricamento from '$lib/components/documenti/PopupCaricamento.svelte';
-	import PopupEmail from '$lib/components/documenti/PopupEmail.svelte';
-	import HeaderUtente from '$lib/components/HeaderUtente.svelte';
+	import { documentiStore } from '$lib/stores/documents.store';
+	import { authStore } from '$lib/stores/auth.store';
+	import TabellaDocumenti from '$lib/components/documents/TabellaDocumenti.svelte';
+	import PopupCaricamento from '$lib/components/documents/PopupCaricamento.svelte';
+	import PopupEmail from '$lib/components/documents/PopupEmail.svelte';
+	import HeaderUtente from '$lib/components/layout/HeaderUtente.svelte';
 
 	// Carica documenti di esempio al mount
 	onMount(() => {

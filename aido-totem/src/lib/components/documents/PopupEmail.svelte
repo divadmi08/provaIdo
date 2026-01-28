@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { emailPopupStore } from '$lib/stores/emailPopupStore.svelte';
+	import { emailPopupStore } from '$lib/stores/ui.store';
 	import { documentiStore } from '$lib/stores/documentiStore.svelte';
 
 	let email = $state('');
