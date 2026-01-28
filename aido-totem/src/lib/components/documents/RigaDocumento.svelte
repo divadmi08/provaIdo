@@ -2,7 +2,7 @@
 	import type { Documento } from '$lib/stores/documentiStore.svelte';
 	import { documentiStore } from '$lib/stores/documentiStore.svelte';
 	import { authStore } from '$lib/stores/authStore.svelte';
-	import { emailPopupStore } from '$lib/stores/emailPopupStore.svelte';
+	import { emailPopupStore } from '$lib/stores/ui.store';
 
 	let { documento } = $props<{ documento: Documento }>();
 

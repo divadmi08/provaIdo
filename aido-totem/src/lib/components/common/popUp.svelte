@@ -1,6 +1,6 @@
 <script lang="ts">
 	import InputPop from "./inputPop.svelte";
-    import { hiddenPopUp, PopUp as PopUpStore, reSetData, saveData } from "$lib/stores/storePopUp";
+    import { hiddenPopUp, PopUp as PopUpStore, reSetData, saveData } from "$lib/stores/storePopUp.svelte";
 	import BottoneDeafoultStyle from "./bottoneDeafoultStyle.svelte";
 let {tipo = "CREA",placeData = "data", placeTitolo ="titolo", placeContenuto = "contenuto", placeEntrata = "entrata" , placeUscita = "uscita"  } = $props()
 

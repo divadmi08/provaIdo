@@ -1,5 +1,5 @@
 <script lang="ts">
-	import QRCode from '$lib/components/QRCode.svelte';
+	import QRCode from '$lib/components/common/QRCode.svelte';
 </script>
 
 <div class="flex h-full flex-col items-center justify-center p-8">
